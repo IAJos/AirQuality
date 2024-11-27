@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid dashboard-container">
+        <div class="row bg-light h-100">
+            <div class="col-md-3">
+                <div class="row h-100 ml-2 mt-2">
+                    <!-- First card with shadow -->
+                    <div class="card shadow">
+                        <div class="card-header bg-white">
+                            <img src="https://cdn-icons-png.flaticon.com/128/8448/8448706.png" style="width: 40px; height: 40px" alt="Air quality">
+                            <span class="dashboard-title">Realtime data from the sensor</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="box">
+                                                <div class="our-services carbon-dioxide">
+                                                    <div class="icon">
+                                                        <img src="https://cdn-icons-png.flaticon.com/128/9417/9417166.png" class="mb-4" alt="CO2">
+                                                    </div>
+                                                    <span>Carbon dioxide</span><br>
+                                                    <span class="data-value carbon-dioxide">
+                                                        <strong id="co2">100 ppm</strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box">
+                                                <div class="our-services ozone">
+                                                    <div class="icon">
+                                                        <img src="https://cdn-icons-png.flaticon.com/128/13873/13873522.png" class="mb-4" alt="O3">
+                                                    </div>
+                                                    <span>Ozone</span><br>
+                                                    <span class="data-value ozone">
+                                                        <strong id="o3">1700 ppm</strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-4">
+                                        <div class="col-md-6">
+                                            <div class="box">
+                                                <div class="our-services carbon-monoxide">
+                                                    <div class="icon">
+                                                        <img src="https://cdn-icons-png.flaticon.com/128/10040/10040866.png" class="mb-4" alt="NO2">
+                                                    </div>
+                                                    <span>Carbon monoxide</span><br>
+                                                    <span class="data-value carbon-monoxide">
+                                                        <strong id="co">2500 ppm</strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 item">
+                                            <div class="box">
+                                                <div class="our-services fine-particle">
+                                                    <div class="icon">
+                                                        <img src="https://cdn-icons-png.flaticon.com/128/15194/15194439.png" class="mb-4" alt="PM2.5">
+                                                    </div>
+                                                    <span>Fine particle</span><br>
+                                                    <span class="data-value fine-particle">
+                                                        <strong id="pm">900 ppm</strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 mt-4 d-flex align-items-center justify-content-center">
+                                            <div class="card shadow">
+                                                <div class="card-body align-items-center justify-content-center text-center">
+                                                    <span class="">Fan status</span><br>
+                                                    <img src="https://cdn-icons-png.flaticon.com/128/11426/11426858.png" class="mb-4" style="width: 100px; height: 100px" alt="Air quality">
+                                                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" id="fan-status-badge">
+                                                    </span> <br>
+                                                    <button type="button" class="btn btn-success bg-success text-white" id="fan-status-text">On</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deuxième partie (colonne droite) -->
+            <div class="col-md-9 dashboard-chart">
+                <div class="row h-100 mt-2 pl-2 mr-2">
+                    <div class="card shadow">
+                        <div class="card-header bg-white">
+                            <img src="https://cdn-icons-png.flaticon.com/128/11232/11232253.png" class="img-icon" style="width: 40px; height: 40px" alt="Air quality">
+                            <span class="dashboard-title">Realtime data chart</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row pb-1">
+                                        <div class="col-mb-12 d-flex align-items-center justify-content-centerd-flex align-items-center justify-content-center">
+                                            <div class="col-md-12">
+                                                <canvas id="myChart1" width="400" height="150"></canvas>
+                                                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+                                                <script>
+                                                    let gazChart = null;
+                                                    document.addEventListener('DOMContentLoaded', function (){
+                                                      function readingGaz(){
+                                                        fetch("{% url 'chart_gaz' %}")
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                const ctx = document.getElementById('myChart1').getContext('2d');
+
+                                                                // Si un graphique existe déjà, le détruire
+                                                                if (gazChart) {
+                                                                    gazChart.destroy();
+                                                                }
+
+                                                                gazChart = new Chart(ctx, {
+                                                                    type: 'bar', // Type de graphique : 'line', 'bar', etc.
+                                                                    data: data,
+                                                                    options: {
+                                                                        responsive: true,
+                                                                        scales: {
+                                                                            x: {
+                                                                                title: {
+                                                                                    display: true,
+                                                                                    text: 'Heure'
+                                                                                }
+                                                                            },
+                                                                            y: {
+                                                                                title: {
+                                                                                    display: true,
+                                                                                    text: 'Concentration'
+                                                                                },
+                                                                                beginAtZero: true
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            })
+                                                            .catch(error => {
+                                                                console.error("Erreur lors du chargement des données :", error);
+                                                            });
+                                                      }
+                                                      readingGaz();
+                                                      setInterval(readingGaz, 5000);
+                                                    })
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pt-1">
+                                        <div class="col-mb-12 d-flex align-items-center justify-content-center">
+                                            <div class="col-md-12">
+                                                <canvas id="myChart" width="600" height="150"></canvas>
+                                                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+                                                <script>
+                                                    let particleChart = null;
+                                                    document.addEventListener('DOMContentLoaded', function (){
+                                                      function readingParticle(){
+                                                        fetch("{% url 'chart_fine_particle' %}")
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                const ctx = document.getElementById('myChart').getContext('2d');
+
+                                                                // Si un graphique existe déjà, le détruire
+                                                                if (particleChart) {
+                                                                    particleChart.destroy();
+                                                                }
+
+                                                                particleChart = new Chart(ctx, {
+                                                                    type: 'line', // Type de graphique : 'line', 'bar', etc.
+                                                                    data: data,
+                                                                    options: {
+                                                                        responsive: true,
+                                                                        scales: {
+                                                                            x: {
+                                                                                title: {
+                                                                                    display: true,
+                                                                                    text: 'Heure'
+                                                                                }
+                                                                            },
+                                                                            y: {
+                                                                                title: {
+                                                                                    display: true,
+                                                                                    text: 'Concentration'
+                                                                                },
+                                                                                beginAtZero: true
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            })
+                                                            .catch(error => {
+                                                                console.error("Erreur lors du chargement des données :", error);
+                                                            });
+                                                      }
+                                                      readingParticle();
+                                                      setInterval(readingParticle, 5000);
+                                                    })
+                                                    {% comment %}var ctx = document.getElementById('myChart').getContext('2d');
+                                                    var myChart = new Chart(ctx, {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                            datasets: [{
+                                                                label: '# of Votes',
+                                                                data: [12, 19, 3, 5, 2, 3],
+                                                                backgroundColor: [
+                                                                    'rgba(255, 99, 132, 0.2)',
+                                                                    'rgba(54, 162, 235, 0.2)',
+                                                                    'rgba(255, 206, 86, 0.2)',
+                                                                    'rgba(75, 192, 192, 0.2)',
+                                                                    'rgba(153, 102, 255, 0.2)',
+                                                                    'rgba(255, 159, 64, 0.2)'
+                                                                ],
+                                                                borderColor: [
+                                                                    'rgba(255, 99, 132, 1)',
+                                                                    'rgba(54, 162, 235, 1)',
+                                                                    'rgba(255, 206, 86, 1)',
+                                                                    'rgba(75, 192, 192, 1)',
+                                                                    'rgba(153, 102, 255, 1)',
+                                                                    'rgba(255, 159, 64, 1)'
+                                                                ],
+                                                                borderWidth: 1
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                yAxes: [{
+                                                                    ticks: {
+                                                                        beginAtZero: true
+                                                                    }
+                                                                }]
+                                                            }
+                                                        }
+                                                    });{% endcomment %}
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function (){
+          function readingData(){
+            fetch(`/data_last/`)
+                .then(response => response.json())
+                .then(data => {
+                  document.getElementById('co2').innerHTML = `${data['quantityCO2']} ppm`;
+                  document.getElementById('o3').innerHTML = `${data['quantityNO2']} ppm`;
+                  document.getElementById('co').innerHTML = `${data['quantityCO']} ppm`;
+                  document.getElementById('pm').innerHTML = `${data['fine_particle']} ppm`;
+
+                  const fanState = data['fan'];
+                  const badge = document.getElementById("fan-status-badge");
+                  const badgeText = document.getElementById("fan-status-text");
+
+                  if (fanState === 1) {
+                    badge.className = "position-absolute top-0 start-100 translate-middle p-2 border border-light rounded-circle bg-success";
+                    badgeText.textContent = "ON";
+                  } else {
+                    badge.className = "position-absolute top-0 start-100 translate-middle p-2 border border-light rounded-circle bg-danger";
+                    badgeText.textContent = "OFF";
+                  }
+
+            }).catch(error => console.error('Error fetching sensor data: ', error));
+          }
+          readingData();
+          setInterval(readingData, 5000);
+        })
+    </script>
+
+{% endblock %}

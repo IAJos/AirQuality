@@ -1,0 +1,202 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Air Quality</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/styles.scss' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+    <header class="site-navbar site-navbar-target bg-white shadow-sm p-2 bg-body rounded" role="banner">
+        <div class="container">
+          <div class="row align-items-center position-relative">
+            <div class="col-lg-4">
+              <nav class="site-navigation text-right ml-auto " role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+                  <li class="active"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                  <li><a href="{% url 'data' %}">Data</a></li>
+                  <li><a href="{% url '404' %}">Services</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-lg-4 text-center">
+              <div class="site-logo">
+                <a href="{% url 'dashboard' %}" type="button" style="text-decoration: none">Air Quality</a>
+              </div>
+              <div class="ml-auto toggle-button d-inline-block d-lg-none"><a href="{% url '404' %}" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3 text-black"></span></a></div>
+            </div>
+            <div class="col-lg-4">
+              <nav class="site-navigation text-left mr-auto " role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+                  <li><a href="{% url '404' %}">About</a></li>
+{#                  <li><a href="{% url '404' %}">Blog</a></li>#}
+                  <li><a href="{% url '404' %}">Contact</a></li>
+                  <li>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#register">Register</a>
+                      {% comment %}<div class="col-md-12 mb-4 d-flex align-items-end justify-content-end p-0">
+                          <button class="btn btn-primary bg-primary text-white btn-around" data-bs-toggle="modal" data-bs-target="#register">Register</button>
+                      </div>{% endcomment %}
+                  </li>
+                  <li>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#login">Login</a>
+                      {% comment %}<div class="col-md-12 mb-4 d-flex align-items-end justify-content-end">
+                          <button class="btn btn-primary bg-primary text-white btn-around" data-bs-toggle="modal" data-bs-target="#login">Login</button>
+                      </div>{% endcomment %}
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+    </header>
+    <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                  <h1 class="fw-bold mb-0 fs-3 text-center">New Account</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                  <form id="userForm" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-floating mb-3">
+                      <input type="text" required class="form-control rounded-3" name="fullname" id="fullname" placeholder="Fullname">
+                      <label for="fullname">Fullname</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="email" required class="form-control rounded-3" name="email" id="email" placeholder="Email">
+                      <label for="email">Email</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="text" required class="form-control rounded-3" name="username" id="username" placeholder="username">
+                      <label for="username">Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="tel" required class="form-control rounded-3" name="phone_number" id="phone_number" placeholder="Phone number">
+                      <label for="phone_number">Phone number</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="password" required class="form-control rounded-3" name="password" id="password">
+                      <label for="password">Password</label>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-success rounded-3 btn-primary" type="submit">Sing-up</button>
+
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                  <h1 class="fw-bold mb-0 fs-3 text-center">User Login</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                  <form id="loginForm" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-floating mb-3">
+                      <input type="text" required class="form-control rounded-3" name="username" id="lusername" placeholder="username">
+                      <label for="username">Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="password" required class="form-control rounded-3" name="password" id="lpassword">
+                      <label for="password">Password</label>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-success rounded-3 btn-primary" type="submit">Sing-In</button>
+
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <script>
+        let apiUrlHome = 'http://192.168.2.23:8001/api';
+        let apiUrlSchool = 'http://192.168.20.139:8001/api';
+        let apiUrlSchoolSever = 'http://192.168.20.111:8001/api';
+
+        let api = apiUrlSchoolSever;
+
+        document.getElementById('userForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(`${api}/users/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+                }
+                const result = await response.json();
+                console.log("Données enregistrées avec succès!");
+            } catch (error) {
+                console.error("Erreur:", error);
+                console.log("Erreur lors de l'enregistrement des données.");
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('lusername').value.trim();
+            const password = document.getElementById('lpassword').value.trim();
+
+            console.log(username);
+            console.log(password);
+
+            try {
+                const response = await fetch(`${api}/token/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('accessToken', data.access);
+                    alert('Login successful!');
+                    window.location.href = {% url 'data' %};
+                } else {
+                    alert('Login failed. Check your credentials.');
+                }
+            } catch (error) {
+                alert('An error occurred: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
