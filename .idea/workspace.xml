@@ -4,7 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4c694-7829-4d5d-a5d8-e0a03d9557d4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +17,6 @@
       <list>
         <option value="JavaScript File" />
         <option value="HTML File" />
-        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -39,7 +37,6 @@
     &quot;Django Server.airQuality.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;G:/IOT/2024-2025/SEC1/PROG1356_Programmation_Web_côté_serveur_pour_IdO/Projets/airQuality/airQualityApp/templates&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -75,11 +72,9 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
       <option name="host" value="localhost" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
@@ -132,12 +127,6 @@
       <workItem from="1733144448827" duration="4551000" />
       <workItem from="1733154380113" duration="909000" />
       <workItem from="1733156396550" duration="701000" />
-      <workItem from="1733298826211" duration="6049000" />
-      <workItem from="1733328112535" duration="8185000" />
-      <workItem from="1733489195659" duration="3977000" />
-      <workItem from="1733754295414" duration="68000" />
-      <workItem from="1733774473880" duration="3222000" />
-      <workItem from="1733779920879" duration="196000" />
     </task>
     <servers />
   </component>
