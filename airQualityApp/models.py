@@ -36,7 +36,8 @@ class Device(models.Model):
     created_at = models.fields.DateTimeField(default=datetime.datetime.now, null=True)
     User = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
-    class Meta: db_table = 'devices'
+    class Meta:
+        db_table = 'devices'
 
 
 class Data(models.Model):
@@ -49,6 +50,8 @@ class Data(models.Model):
     temperature = models.fields.FloatField(null=True)
     created_at = models.fields.DateTimeField(default=datetime.datetime.now, null=True)
     device_name = models.ForeignKey(Device, to_field='name', null=True, on_delete=models.CASCADE)
+
+    _database = 'jos_user'  # Indique que ce modèle doit utiliser la paramètre de connexion 'jos_user'
 
     class Meta:
         db_table = 'data'

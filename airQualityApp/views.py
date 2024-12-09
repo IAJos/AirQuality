@@ -8,14 +8,13 @@ from django.http import JsonResponse
 import requests
 from datetime import datetime
 
-
 # Create your views here.
 
 apiUrlHome = 'http://192.168.2.23:8001/api'
 apiUrlSchool = 'http://192.168.20.139:8001/api'
 apiUrlSchoolSever = 'http://192.168.20.111:8001/api'
 
-api = apiUrlSchoolSever
+api = apiUrlHome
 
 
 def no_found(request):
@@ -70,7 +69,17 @@ def get_data_by_device(request, device_name_id):
 
 
 def get_last_data(request):
-    result = Data.objects.order_by('-created_at').first()
+    user = request.user
+    print(f"Request : {request.body}")
+    print(f"DB user : {user}")
+    db_name = get_database_for_user(user)
+    print(f"DB name: {db_name}")
+    # result = Data.objects.using(db_name).order_by('-created_at').first()
+    result = Data.objects.using('jos_user').order_by('-created_at').first()
+
+    if result is None:
+        return JsonResponse({"error": "No data found"}, status=404)
+
     data_info = {
         'quantityCO2': result.quantityCO2,
         'quantityCO': result.quantityCO,
@@ -182,3 +191,11 @@ def chart_fine_particle(request):
 
 def chart_view(request):
     return render(request, 'chart.html')
+
+
+def get_database_for_user(user):
+    if user.username == 'user1':
+        return 'default'
+    elif user.username == 'user2':
+        return 'user2_db'
+    return 'default'

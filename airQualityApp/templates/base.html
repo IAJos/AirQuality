@@ -140,7 +140,7 @@
         let apiUrlSchool = 'http://192.168.20.139:8001/api';
         let apiUrlSchoolSever = 'http://192.168.20.111:8001/api';
 
-        let api = apiUrlSchoolSever;
+        let api = apiUrlSchool;
 
         document.getElementById('userForm').addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -157,12 +157,16 @@
                     },
                     body: JSON.stringify(data),
                 });
-
-                if (!response.ok) {
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('Signup successful!');
+                    window.location.href = {% url 'data' %};
+                    console.log("Données enregistrées avec succès!");
+                } else {
+                    alert('Signup failed !');
                     throw new Error(`Erreur ${response.status}: ${response.statusText}`);
                 }
-                const result = await response.json();
-                console.log("Données enregistrées avec succès!");
             } catch (error) {
                 console.error("Erreur:", error);
                 console.log("Erreur lors de l'enregistrement des données.");

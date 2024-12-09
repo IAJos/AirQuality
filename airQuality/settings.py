@@ -76,7 +76,9 @@ WSGI_APPLICATION = 'airQuality.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {},
+
+    'postgres_user': {
         'ENGINE': 'django.db.backends.postgresql',
 
         'NAME': 'airQualityDB',
@@ -90,12 +92,27 @@ DATABASES = {
         'PORT': '5432',
         },
 
+    'jos_user': {
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'airQualityDB',
+
+        'USER': 'jos',
+
+        'PASSWORD': '1Jospin',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+        },
+
     'default_sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+DATABASE_ROUTERS = ['airQualityApp.db_router.UserDatabaseRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
