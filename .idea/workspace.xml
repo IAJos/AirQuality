@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4c694-7829-4d5d-a5d8-e0a03d9557d4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/airQualityApp/db_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQuality/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/airQuality/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQualityApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/airQualityApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQualityApp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/airQualityApp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQualityApp/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/airQualityApp/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQualityApp/templates/data.html" beforeDir="false" afterPath="$PROJECT_DIR$/airQualityApp/templates/data.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airQualityApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/airQualityApp/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="6ef4c694-7829-4d5d-a5d8-e0a03d9557d4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,6 +137,7 @@
       <workItem from="1733489195659" duration="3977000" />
       <workItem from="1733754295414" duration="68000" />
       <workItem from="1733774473880" duration="3222000" />
+      <workItem from="1733779920879" duration="196000" />
     </task>
     <servers />
   </component>
