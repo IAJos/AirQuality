@@ -15,7 +15,7 @@ apiUrlHome = 'http://192.168.2.23:8001/api'
 apiUrlSchool = 'http://192.168.20.139:8001/api'
 apiUrlSchoolSever = 'http://192.168.20.111:8001/api'
 
-api = apiUrlSchoolSever
+api = apiUrlSchool
 
 
 def no_found(request):

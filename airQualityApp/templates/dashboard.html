@@ -105,11 +105,51 @@
                                     <div class="row pb-1">
                                         <div class="col-mb-12 d-flex align-items-center justify-content-centerd-flex align-items-center justify-content-center">
                                             <div class="col-md-12">
-                                                <canvas id="myChart1" width="400" height="150"></canvas>
+                                                <canvas id="myChart1" width="400" height="300"></canvas>
                                                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
                                                 <script>
                                                     let gazChart = null;
-                                                    document.addEventListener('DOMContentLoaded', function (){
+
+                                                    function createChart(gasData) {
+                                                        const ctx = document.getElementById('myChart1').getContext('2d');
+                                                        gazChart = new Chart(ctx, {
+                                                            type: 'bar',
+                                                            data: gasData,
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                                scales: {
+                                                                    x: {
+                                                                        beginAtZero: true
+                                                                    },
+                                                                    y: {
+                                                                        beginAtZero: true
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+
+                                                    function updateChart(newData) {
+                                                        if (gazChart) {
+                                                            gazChart.data = newData;
+                                                            gazChart.update();
+                                                        }
+                                                    }
+
+                                                    function fetchDataAndUpdateChart() {
+                                                        fetch("{% url 'chart_gaz' %}")
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                updateChart(data);
+                                                            })
+                                                            .catch(error => console.error('Erreur lors de la récupération des données:', error));
+                                                    }
+
+                                                    createChart({});
+                                                    setInterval(fetchDataAndUpdateChart, 5000);
+
+                                                    /*document.addEventListener('DOMContentLoaded', function (){
                                                       function readingGaz(){
                                                         fetch("{% url 'chart_gaz' %}")
                                                             .then(response => response.json())
@@ -150,7 +190,7 @@
                                                       }
                                                       readingGaz();
                                                       setInterval(readingGaz, 5000);
-                                                    })
+                                                    })*/
                                                 </script>
                                             </div>
                                         </div>
@@ -158,11 +198,52 @@
                                     <div class="row pt-1">
                                         <div class="col-mb-12 d-flex align-items-center justify-content-center">
                                             <div class="col-md-12">
-                                                <canvas id="myChart" width="600" height="150"></canvas>
+                                                <canvas id="myChart" width="600" height="300"></canvas>
                                                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
                                                 <script>
                                                     let particleChart = null;
-                                                    document.addEventListener('DOMContentLoaded', function (){
+
+                                                    function createParticleChart(gasData) {
+                                                        const ctx = document.getElementById('myChart').getContext('2d');
+                                                        particleChart = new Chart(ctx, {
+                                                            type: 'line',
+                                                            data: gasData,
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                                scales: {
+                                                                    x: {
+                                                                        beginAtZero: true
+                                                                    },
+                                                                    y: {
+                                                                        beginAtZero: true
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+
+                                                    function updateParticleChart(newData) {
+                                                        if (particleChart) {
+                                                            particleChart.data = newData;
+                                                            particleChart.update();
+                                                        }
+                                                    }
+
+                                                    function fetchDataAndUpdateParticleChart() {
+                                                        fetch("{% url 'chart_fine_particle' %}")
+                                                                .then(response => response.json())
+                                                                .then(data => {
+                                                                    updateParticleChart(data);
+                                                                })
+                                                                .catch(error => console.error('Erreur lors de la récupération des données:', error));
+                                                    }
+
+                                                    createParticleChart({});
+                                                    setInterval(fetchDataAndUpdateParticleChart, 5000);
+
+
+                                                    /*document.addEventListener('DOMContentLoaded', function (){
                                                       function readingParticle(){
                                                         fetch("{% url 'chart_fine_particle' %}")
                                                             .then(response => response.json())
@@ -203,44 +284,7 @@
                                                       }
                                                       readingParticle();
                                                       setInterval(readingParticle, 5000);
-                                                    })
-                                                    {% comment %}var ctx = document.getElementById('myChart').getContext('2d');
-                                                    var myChart = new Chart(ctx, {
-                                                        type: 'bar',
-                                                        data: {
-                                                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                                            datasets: [{
-                                                                label: '# of Votes',
-                                                                data: [12, 19, 3, 5, 2, 3],
-                                                                backgroundColor: [
-                                                                    'rgba(255, 99, 132, 0.2)',
-                                                                    'rgba(54, 162, 235, 0.2)',
-                                                                    'rgba(255, 206, 86, 0.2)',
-                                                                    'rgba(75, 192, 192, 0.2)',
-                                                                    'rgba(153, 102, 255, 0.2)',
-                                                                    'rgba(255, 159, 64, 0.2)'
-                                                                ],
-                                                                borderColor: [
-                                                                    'rgba(255, 99, 132, 1)',
-                                                                    'rgba(54, 162, 235, 1)',
-                                                                    'rgba(255, 206, 86, 1)',
-                                                                    'rgba(75, 192, 192, 1)',
-                                                                    'rgba(153, 102, 255, 1)',
-                                                                    'rgba(255, 159, 64, 1)'
-                                                                ],
-                                                                borderWidth: 1
-                                                            }]
-                                                        },
-                                                        options: {
-                                                            scales: {
-                                                                yAxes: [{
-                                                                    ticks: {
-                                                                        beginAtZero: true
-                                                                    }
-                                                                }]
-                                                            }
-                                                        }
-                                                    });{% endcomment %}
+                                                    })*/
                                                 </script>
                                             </div>
                                         </div>
